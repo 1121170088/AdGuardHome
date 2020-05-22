@@ -36,9 +36,9 @@ const getInitialValues = (filters, normalizedFiltersCatalog) => {
 };
 
 const getSources = (filters, normalizedFiltersCatalog) => {
-    const filterUrls = filters.map(filter => filter.url);
+    const filterUrls = filters.map((filter) => filter.url);
     const normalizedSources = Object.values(normalizedFiltersCatalog)
-        .map(el => el.source).reduce((acc, curr) => {
+        .map((el) => el.source).reduce((acc, curr) => {
             acc[curr] = true;
             return acc;
         }, {});
@@ -128,8 +128,8 @@ Modal.propTypes = {
     t: PropTypes.func.isRequired,
     whitelist: PropTypes.bool,
     filters: PropTypes.array.isRequired,
-    filtersCatalog: PropTypes.object.isRequired,
-    normalizedFiltersCatalog: PropTypes.object.isRequired,
+    filtersCatalog: PropTypes.object,
+    normalizedFiltersCatalog: PropTypes.object,
 };
 
 export default withTranslation()(Modal);

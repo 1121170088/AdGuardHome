@@ -477,7 +477,7 @@ export const formatNumber = (num) => {
     return num.toLocaleString(currentLanguage);
 };
 
-export const flattenObject = obj => Object.values(obj)
+export const flattenObject = (obj) => Object.values(obj)
     .reduce((acc, curr) => ({ ...acc, ...curr }), {});
 
 export const enrichWithKey = (filters, propName = 'name') => Object.entries(filters)

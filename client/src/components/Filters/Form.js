@@ -9,7 +9,7 @@ import {
 } from '../../helpers/form';
 import { MODAL_OPEN_TIMEOUT, MODAL_TYPE } from '../../helpers/constants';
 
-const renderFilters = (filtersCatalog, selectedSources) => Object.entries(filtersCatalog)
+const renderFilters = (filtersCatalog, selectedSources, t) => Object.entries(filtersCatalog)
     .map(([categoryName, listObj]) => <div key={categoryName} className="modal-body__item">
                 <h6 className="form__label form__label--with-desc form__label--bold pb-2">
                     <Trans>{categoryName}</Trans></h6>
@@ -23,7 +23,7 @@ const renderFilters = (filtersCatalog, selectedSources) => Object.entries(filter
                                 name={listName}
                                 type="checkbox"
                                 component={renderSelectField}
-                                placeholder={<Trans>{listName}</Trans>}
+                                placeholder={t(listName)}
                                 disabled={isSelected}
                             />
                             <a href={homepage} className="ml-1 d-flex align-items-center">
@@ -77,7 +77,7 @@ const Form = (props) => {
                     </button>
                 </div>}
                 {modalType === MODAL_TYPE.CHOOSE_FILTERING_LIST
-                && renderFilters(filtersCatalog, selectedSources)}
+                && renderFilters(filtersCatalog, selectedSources, t)}
                 {modalType !== MODAL_TYPE.CHOOSE_FILTERING_LIST
                 && modalType !== MODAL_TYPE.SELECT_MODAL_TYPE && <Fragment>
                     <div className="form__group">
@@ -137,7 +137,7 @@ Form.propTypes = {
     whitelist: PropTypes.bool,
     modalType: PropTypes.string.isRequired,
     toggleFilteringModal: PropTypes.func.isRequired,
-    filtersCatalog: PropTypes.object.isRequired,
+    filtersCatalog: PropTypes.object,
     selectedSources: PropTypes.object,
 };
 
