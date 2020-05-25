@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 export const R_URL_REQUIRES_PROTOCOL = /^https?:\/\/[^/\s]+(\/.*)?$/;
 export const R_HOST = /^(\*\.)?([\w-]+\.)+[\w-]+$/;
 export const R_IPV4 = /^(?:(?:^|\.)(?:2(?:5[0-5]|[0-4]\d)|1?\d?\d)){4}$/;
@@ -376,30 +375,7 @@ export const ACTION = {
     unblock: 'unblock',
 };
 
-/**
- * @param ip {string}
- * @returns {number}
- */
-export const ipToInt = ip => ip.split('.')
-    .reduce((int, oct) => (int << 8) + parseInt(oct, 10), 0) >>> 0;
-
-/**
- * @param cidr {string}
- * @param ip {string}
- * @returns {boolean}
- */
-export const isIpInCidr = (cidr, ip) => {
-    const [range, bits = 32] = cidr.split('/');
-    const mask = ~((2 ** (32 - bits)) - 1);
-    return (ipToInt(ip) & mask) === (ipToInt(range) & mask);
+export const BLOCKED_CLIENT = {
+    IP: 'IP',
+    CIDR: 'CIDR',
 };
-
-/**
- * @param rawClients {string}
- * @param currentClient {string}
- * @returns {boolean}
- */
-export const isClientInIpsOrCidrs = (rawClients, currentClient) => rawClients.split('\n')
-    .some(client => (client.includes('/')
-        ? isIpInCidr(client, currentClient)
-        : (client === currentClient)));

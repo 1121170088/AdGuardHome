@@ -6,8 +6,8 @@ import { Trans, withNamespaces } from 'react-i18next';
 import Card from '../ui/Card';
 import Cell from '../ui/Cell';
 
-import { getPercent } from '../../helpers/helpers';
-import { isClientInIpsOrCidrs, STATUS_COLORS } from '../../helpers/constants';
+import { getPercent, isClientInIpsOrCidrs } from '../../helpers/helpers';
+import { BLOCKED_CLIENT, STATUS_COLORS } from '../../helpers/constants';
 import { formatClientCell } from '../../helpers/formatClientCell';
 
 const getClientsPercentColor = (percent) => {
@@ -74,7 +74,8 @@ const clientCell = (t, toggleClientStatus, processing, disallowedClients) =>
                 <div className="logs__row logs__row--overflow logs__row--column">
                     {formatClientCell(row, t)}
                 </div>
-                {renderBlockingButton(blocked, value, toggleClientStatus, processing)}
+                {blocked !== BLOCKED_CLIENT.CIDR &&
+                renderBlockingButton(blocked, value, toggleClientStatus, processing)}
             </Fragment>
         );
     };
